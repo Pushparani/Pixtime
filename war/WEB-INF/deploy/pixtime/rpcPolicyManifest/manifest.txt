@@ -1,0 +1,3 @@
+# Module pixtime
+# RPC service class, partial path of RPC policy file
+com.pixtime.test.client.GreetingService, 0AFE0DF6AD733F792A275424C3C924A5.gwt.rpc

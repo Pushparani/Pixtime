@@ -1,0 +1,2 @@
+serviceClass: com.pixtime.test.client.GreetingService
+path: 0AFE0DF6AD733F792A275424C3C924A5.gwt.rpc
