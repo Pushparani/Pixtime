@@ -32,5 +32,22 @@
 		<include path="/img/*.gif" />
 		<include path="*.xml" />
 		
+		<include path="/bower_components/classie/classie.js" />
+		<include path="/bower_components/eventie/eventie.js" />
+		<include path="/bower_components/doc-ready/doc-ready.js" />
+		<include path="/bower_components/get-style-property/get-style-property.js" />
+		<include path="/bower_components/eventEmitter/EventEmitter.js" />
+		<include path="/bower_components/imagesloaded/imagesloaded.js" />
+		<include path="/bower_components/get-size/get-size.js" />
+		<include path="/bower_components/jquery-bridget/jquery.bridget.js" />
+		<include path="/bower_components/matches-selector/matches-selector.js" />
+		<include path="/bower_components/outlayer/item.js" />
+		<include path="/bower_components/outlayer/outlayer.js" />
+		<include path="/bower_components/masonry/masonry.js" />
+		<include path="/bower_components/normalize-css/normalize.css" />
+		<include path="/js/*.js" />
+		<include path="/js/pages/*.js" />
+		<include path="/css/*.css" />
+		<include path="*.xml" />
 	</static-files>
 </appengine-web-app>

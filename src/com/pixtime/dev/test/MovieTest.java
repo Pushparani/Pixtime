@@ -1,5 +1,7 @@
 package com.pixtime.dev.test;
 
+import java.util.UUID;
+
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.pixtime.vo.Movie;
@@ -12,7 +14,10 @@ public class MovieTest {
 
 	public static void main(String args[]){
 		
-		String id = "anbeva100";	
+		
+		
+		String id = UUID.randomUUID().toString();
+		
 		
 		String movieName = "Anbeva";
 		String description= "Classic hit of MGR";
@@ -28,6 +33,7 @@ public class MovieTest {
 		String rating_End_Date = "NA";
 		String specialNotes = "A Memorable one for all people in Tamilnadu";
 		String encodedImg = "OrI+B6fu4ZUuI0GWpcnppf3";
+		
 		Movie movie = new Movie(id,movieName,description,total_reviews,movieurl,wikipedia_url,image,yearReleased,genre,current_Star_Rate,uploaded_Date,site_display_status,rating_End_Date,specialNotes,encodedImg);
 		
 		ObjectMapper objMapper = new ObjectMapper();

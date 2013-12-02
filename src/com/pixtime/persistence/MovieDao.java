@@ -13,6 +13,7 @@ import org.apache.commons.io.IOUtils;
 import com.googlecode.objectify.NotFoundException;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Query;
 import com.pixtime.entities.MovieEO;
 import com.pixtime.exceptions.PixTimeException;
 import com.pixtime.vo.Movie;
@@ -71,10 +72,9 @@ public class MovieDao {
 		try {
 			Objectify ofy = ObjectifyService.begin();
 
-			Iterator<MovieEO> movieEOItr = ofy.query(MovieEO.class).iterator();
+			Query<MovieEO> movieEOItr = ofy.query(MovieEO.class);
 
-			while (movieEOItr.hasNext()) {
-				MovieEO movieEobj = movieEOItr.next();
+			for (MovieEO movieEobj : movieEOItr) {
 				Movie movie = new Movie();
 				movie.setMovieName(movieEobj.getMovieName());
 				movie.setEncodedImg(movieEobj.getEncodedImg());

@@ -3,6 +3,7 @@
 
 #hero .primary-content {
   padding-bottom: 20px;
+  padding-top:100px;
 }
 
 #hero h1 {
@@ -45,8 +46,8 @@
 .hero-masonry {
   background: white;
   border-radius: 10px;
-  padding: 10px 1%;
-  margin-bottom: 20px;
+  padding: 20px 1%;
+  margin-bottom: 30px;
 }
 
 .hero-masonry:after {
@@ -69,7 +70,7 @@
 }
 
 .hero-item.texty {
-  background: #D8D6D2;
+  background: #ffffff;
   padding: 10px;
 }
 
