@@ -27,20 +27,23 @@ public class MovieTest {
 		String image = "https://imayampixs.appspot.com/img/anbeva.jpg";
 		String yearReleased= "1977";
 		String genre="romance";
-		String current_Star_Rate="5 Stars";
+		int current_Star_Rate=4;
 	    String uploaded_Date = "11/03/2013";
 		String site_display_status = "Active";
 		String rating_End_Date = "NA";
 		String specialNotes = "A Memorable one for all people in Tamilnadu";
 		String encodedImg = "OrI+B6fu4ZUuI0GWpcnppf3";
-		
-		Movie movie = new Movie(id,movieName,description,total_reviews,movieurl,wikipedia_url,image,yearReleased,genre,current_Star_Rate,uploaded_Date,site_display_status,rating_End_Date,specialNotes,encodedImg);
+		String director = "";
+		String producedBy = "";
+		String cast = "";
+		Movie movie = new Movie(id,movieName,description,total_reviews,movieurl,wikipedia_url,image,yearReleased,genre,current_Star_Rate,uploaded_Date,site_display_status,rating_End_Date,specialNotes,encodedImg,director,producedBy,cast);
 		
 		ObjectMapper objMapper = new ObjectMapper();
 		try{
 			String movieReq = objMapper.writeValueAsString(movie);
+			System.out.println(movieReq);
 		Movie movie1 = objMapper.readValue(movieReq, Movie.class);
-			System.out.println(movie1.getCurrent_Star_Rate());
+			System.out.println(movie1);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

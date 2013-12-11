@@ -46,6 +46,7 @@ public class MovieAddSvc extends HttpServlet {
 			resp.setStatus(201);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			pixtimeStatusDesc = "internal Error Occured. Please check with us Later";
 			pixtimeStatus = "FAILED";
 			resp.setStatus(500);

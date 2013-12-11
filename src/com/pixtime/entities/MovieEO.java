@@ -24,7 +24,7 @@ public class MovieEO{
 //	@Unindexed private String cast;
 	@Unindexed private String yearReleased;
 	@Unindexed private String genre;
-	@Unindexed private String current_Star_Rate;
+	@Unindexed private int current_Star_Rate;
 	@Unindexed private String uploaded_Date;
 	@Unindexed private String site_display_status;
 	@Unindexed private String rating_End_Date;
@@ -45,7 +45,7 @@ public class MovieEO{
 	public MovieEO(String id, String movieName, String description,
 			String total_reviews, String movieurl, String wikipedia_url,
 			String image, String yearRelease,
-			String genre, String current_Star_Rate, String uploaded_Date,
+			String genre, int current_Star_Rate, String uploaded_Date,
 			String site_display_status, String rating_End_Date,
 			String specialNotes,String encodedImg) {
 		super();
@@ -146,11 +146,11 @@ public class MovieEO{
 		this.genre = genre;
 	}
 
-	public String getCurrent_Star_Rate() {
+	public int getCurrent_Star_Rate() {
 		return current_Star_Rate;
 	}
 
-	public void setCurrent_Star_Rate(String current_Star_Rate) {
+	public void setCurrent_Star_Rate(int current_Star_Rate) {
 		this.current_Star_Rate = current_Star_Rate;
 	}
 
