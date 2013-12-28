@@ -40,10 +40,16 @@ public class MovieDao {
 			String uniqueID = UUID.randomUUID().toString();
 
 			String s = movie.getImage();
+			
+			
 
 			URL url = new URL(s);
+			
+         String movieurl="http://localhost:8888/movie-detail.html";
 
-			movie.setMovieurl(movie.getMovieurl());
+			movie.setMovieurl(movieurl+"?movieId="+uniqueID);
+			
+System.out.println("movieurl"+movie.getMovieurl());
 
 			movie.setEncodedImg(Base64.encodeBase64String(IOUtils
 					.toByteArray(url.openStream())));
