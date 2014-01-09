@@ -31,12 +31,23 @@ public class ReviewDao {
 
 	}
 
-	public void insertReview(Review review) {
+public void insertReview(String movieid,String comment,String userid) throws PixTimeException{
 
 		try {
 			Objectify ofy = ObjectifyService.begin();
 
-			String reviewId = REVIEW_IND + UUID.randomUUID().toString();
+			//String reviewId = REVIEW_IND + UUID.randomUUID().toString();
+			String reviewId =  UUID.randomUUID().toString();
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			System.out.println(dateFormat.format(date));
+			String td= dateFormat.format(date);
+			Review review=new Review();
+			review.setStarRating("3");
+			review.setUserId(userid);
+			review.setMovieId(movieid);
+			review.setComments(comment);
+			review.setReviewTs(td);
 
 			ReviewEO reviewEo = new ReviewEO(reviewId, review.getUserId(),
 					review.getReviewTs(), review.getStarRating(),
@@ -45,10 +56,14 @@ public class ReviewDao {
 			ofy.put(reviewEo);
 
 		} catch (Exception e) {
+			LOG.info("Exception Occured While inserting a review" + e.toString());
+			throw new PixTimeException(
+					"Exception Occured While inserting a review");
 
 		}
 
 	}
+
 
 	public void updateReview(Review review) {
 
