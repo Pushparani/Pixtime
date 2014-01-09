@@ -1,5 +1,7 @@
 package com.pixtime.entities;
 
+import javax.persistence.Id;
+
 public class ReviewEO {
 
 	public ReviewEO() {
@@ -11,9 +13,20 @@ public class ReviewEO {
 	private String reviewTs;
 	private String starRating;
 	private String comments;
-	private String movieId;
+	//private String movieId;
+	@Id private String id;	
 	
 	
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
 	/**
 	 * @return the reviewId
 	 */
@@ -97,28 +110,28 @@ public class ReviewEO {
 	/**
 	 * @return the movieId
 	 */
-	public String getMovieId() {
+/*	public String getMovieId() {
 		return movieId;
-	}
+	}*/
 
 
 	/**
 	 * @param movieId the movieId to set
 	 */
-	public void setMovieId(String movieId) {
+/*	public void setMovieId(String movieId) {
 		this.movieId = movieId;
-	}
+	}*/
 
 
-	public ReviewEO(String reviewId, String userId, String reviewTs,
-			String starRating, String comments, String movieId) {
+	public ReviewEO(String reviewId, String userId,String reviewTs,
+			String starRating, String comments, String Id) {
 		super();
 		this.reviewId = reviewId;
 		this.userId = userId;
 		this.reviewTs = reviewTs;
 		this.starRating = starRating;
 		this.comments = comments;
-		this.movieId = movieId;
+		this.id = Id;
 	}
 	
 
