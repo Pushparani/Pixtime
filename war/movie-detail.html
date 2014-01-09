@@ -20,13 +20,18 @@
 <!-- alternative styles -->
 <link href="css/bigstars.css" rel="stylesheet" type="text/css">
 <link href="css/antenna.css" rel="stylesheet" type="text/css">
+	<script src="js/shCore.js"></script>
+
 <!-- syntax highlighter -->
 <link href="css/shCore.css" rel="stylesheet" type="text/css">
 <link href="css/shCoreDefault.css" rel="stylesheet" type="text/css">
-
+	
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="js/jquery.rateit.min.js" type="text/javascript"></script>
+
 <script type="text/javascript"
 	src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.1/handlebars.min.js"></script>
+
 <style>
 div.bigstars div.rateit-range {
 	background: url(img/star-white32.png);
@@ -54,7 +59,75 @@ div.bigstars div.rateit-reset:hover {
 
 </head>
 
-<body>
+<body onload="getmoviedetails()">
+	<div id="fb-root"></div>
+	<script>
+		window.fbAsyncInit = function() {
+			console.log("hello");
+			// init the FB JS SDK
+			FB.init({
+				appId : '1444673142414855', // App ID from the app dashboard
+				status : true, // Check Facebook Login status
+				cookie : true,
+				xfbml : true
+			// Look for social plugins on the page
+			});
+
+			FB.Event.subscribe('auth.authResponseChange', function(response) {
+				// Here we specify what we do with the response anytime this event occurs. 
+				if (response.status === 'connected') {
+					// The response object is returned with a status field that lets the app know the current
+					// login status of the person. In this case, we're handling the situation where they 
+					// have logged in to the app.
+					testAPI();
+				} else if (response.status === 'not_authorized') {
+					// In this case, the person is logged into Facebook, but not into the app, so we call
+					// FB.login() to prompt them to do so. 
+					// In real-life usage, you wouldn't want to immediately prompt someone to login 
+					// like this, for two reasons:
+					// (1) JavaScript created popup windows are blocked by most browsers unless they 
+					// result from direct interaction from people using the app (such as a mouse click)
+					// (2) it is a bad experience to be continually prompted to login upon page load.
+					FB.login();
+				} else {
+					// In this case, the person is not logged into Facebook, so we call the login() 
+					// function to prompt them to do so. Note that at this stage there is no indication
+					// of whether they are logged into the app. If they aren't then they'll see the Login
+					// dialog right after they log in to Facebook. 
+					// The same caveats as above apply to the FB.login() call here.
+					FB.login();
+				}
+			});
+		};
+
+		// Load the SDK asynchronously
+		(function(d) {
+			var js, id = 'facebook-jssdk', ref = d
+					.getElementsByTagName('script')[0];
+			if (d.getElementById(id)) {
+				return;
+			}
+			js = d.createElement('script');
+			js.id = id;
+			js.async = true;
+			js.src = "//connect.facebook.net/en_US/all.js";
+			ref.parentNode.insertBefore(js, ref);
+		}(document));
+
+		// Here we run a very simple test of the Graph API after login is successful. 
+		// This testAPI() function is only called in those cases. 
+		function testAPI() {
+
+			console.log('Welcome!  Fetching your information.... ');
+			FB.api('/me', function(response) {
+				console.log('Good to see you, ' + response.name + '.'
+						+ response.id);
+				var userid = response.id;
+				var idval = document.getElementById("tid");
+				idval.value = userid;
+			});
+		}
+	</script>
 
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
@@ -76,34 +149,45 @@ div.bigstars div.rateit-reset:hover {
 					<li><a href="#about">About</a></li>
 					<li><a href="#services">Services</a></li>
 					<li><a href="#contact">Contact</a></li>
-
-
-
-
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
 		</div>
 		<!-- /.container -->
-	</nav>
-<body onload="getmoviedetails()">
+	</nav><br>
+	<br>
+	<br>
+<br>
+
+	
+	<div id="place"></div>
 	<div id="placeholder"></div>
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
 	<script type="text/javascript"
 		src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.1/handlebars.min.js"></script>
-	<script id="myTemplate" type="text/x-handlebars-template">
+	<script id="myTemplate1" type="text/x-handlebars-template">
+<div id="place">
+<div id="rateit9" class="rateit"
+var a=$('#rateit9').rateit('value')) onclick="alert('a ='+a)"></div>
+</div>
+</script>
+		<script id="myTemplate" type="text/x-handlebars-template">
 	<div class="container">
+
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">
-					{{movieName}}<br>
+
+					{{movieName}} 
 				</h1>
+
+
 				<ol class="breadcrumb">
 					<li><a href="index.html">Home</a></li>
 					<li class="active">Review</li>
 				</ol>
-			</div>
 
+			</div>
 		</div>
 
 
@@ -118,88 +202,92 @@ div.bigstars div.rateit-reset:hover {
 					9:00 PM by <a href="#">Premkumar Manivannan</a>
 				</p>
 				<hr>
-					<img src="data:image/gif;base64,{{encodedImg}}" class="img-responsive"> </img>
-			
+				<img src="data:image/gif;base64,{{encodedImg}}"
+					class="img-responsive"> </img>
+
 				<hr>
 
-		
-	
+				<!-- row -->
+				<hr>
+				<form method="post" action="/pixtime/reviews/">
+				
+					<div class="row">
+						<div class="col-lg-6">
 
 
-					<!-- row --> 
-					<hr>
-				<div class="row">
-					<div class="col-lg-6">
-
-						<form role="form">
 
 							<div class="form-group">
-								<label>Title Your Review</label> <input class="form-control"
+								<input type="hidden" name="movieid" value={{movieId}} />
+								<input type="hidden" name="t1" id="tid"/>
+								 <label>Title
+									Your Review</label>
+								 <input type="text" name="fc" class="form-control"
 									placeholder="Review Title">
 							</div>
 
 
-						</form>
 
-<!-- the comment box -->
-				<div class="well">
-					<h4>
-						Could you say more about this Movie? <small>(Not More than
-							100 words):</small>
-					</h4>
-					<form role="form">
-						<div class="form-group">
-							<textarea class="form-control" rows="3"></textarea>
+							<!-- the comment box -->
+							<div class="well">
+								<h4>
+									Could you say more about this Movie? <small>(Not More
+										than 100 words):</small>
+								</h4>
+
+								<div class="form-group">
+									<textarea rows="10" cols="80" name="ta" class="form-control"
+										rows="3"></textarea>
+								</div>
+
+
+							</div>
+							<input type="submit" class="btn btn-primary"/>
+							<br>
+							<div class="well">
+
+
+
+								<h3>Recent Reviews About {{movieId}}{{movieName}}</h3>
+								<!-- the comments -->
+								<h4>
+									Premkumar Manivannan <small>9:41 PM on October 24, 2013</small>
+								</h4>
+								<p>This has to be the worst blog post I have ever read. It
+									simply makes no sense. You start off by talking about space or
+									something, then you randomly start babbling about cupcakes, and
+									you end off with random fish names.</p>
+
+								<h4>
+									Pugazh <small>9:47 PM on August 24, 2013</small>
+								</h4>
+								<p>Don't listen to this guy, any blog with the categories
+									'dinosaurs, spaceships, fried foods, wild animals, alien
+									abductions, business casual, robots, and fireworks' has true
+									potential.</p>
+
+								<h4>
+									Saravanan <small>9:47 PM on August 24, 2013</small>
+								</h4>
+								<p>Don't listen to this guy, any blog with the categories
+									'dinosaurs, spaceships, fried foods, wild animals, alien
+									abductions, business casual, robots, and fireworks' has true
+									potential.</p>
+
+							</div>
+							<!-- /well -->
+
+
+
+
+
 						</div>
-
-
-					</form>
-
-</div>
-<button type="submit" class="btn btn-primary">Submit</button>
-<br>
-<div class="well">
-				
-
-
-					<h3>Recent Reviews About   {{movieName}}</h3>
-					<!-- the comments -->
-					<h4>
-						Premkumar Manivannan <small>9:41 PM on October 24, 2013</small>
-					</h4>
-					<p>This has to be the worst blog post I have ever read. It
-						simply makes no sense. You start off by talking about space or
-						something, then you randomly start babbling about cupcakes, and
-						you end off with random fish names.</p>
-
-					<h4>
-						Pugazh <small>9:47 PM on August 24, 2013</small>
-					</h4>
-					<p>Don't listen to this guy, any blog with the categories
-						'dinosaurs, spaceships, fried foods, wild animals, alien
-						abductions, business casual, robots, and fireworks' has true
-						potential.</p>
-
-					<h4>
-						Saravanan <small>9:47 PM on August 24, 2013</small>
-					</h4>
-					<p>Don't listen to this guy, any blog with the categories
-						'dinosaurs, spaceships, fried foods, wild animals, alien
-						abductions, business casual, robots, and fireworks' has true
-						potential.</p>
-
-				</div>
-				<!-- /well -->
-
-
-
-
-
+						
 					</div>
-				</div>
+					</form>
 				
-				</div>
-							<div class="col-lg-4">
+
+			</div>
+			<div class="col-lg-4">
 				<div class="well1">
 					<h4>Movie Review Search</h4>
 					<div class="input-group">
@@ -224,101 +312,98 @@ div.bigstars div.rateit-reset:hover {
 
 							</ul>
 						</div>
-					
+
 					</div>
 				</div>
 				<!-- /well -->
-				
 
-				
+
+
 				<!-- /well -->
 			</div>
-			</div>
-				</div>	
-<!-- Container -->
-</script>
-	<script type="text/javascript"> 
-    	  
 
-			var source = document.getElementById("myTemplate").innerHTML;
-            var template = Handlebars.compile(source);
-            var url=document.URL;
-            var n=url.indexOf("=");               
-            var res = url.substring(n+1,url.length);
-                       
-            function getmoviedetails(){
-                     	
-            	
-           $.get('http://localhost:8888/pixtime/movies/'+res,function(responseJson) {
-        		console.log("console"+responseJson);
-       	    document.getElementById("placeholder").innerHTML = template(responseJson);
-         	});
-            }
-      </script>
-</body>
-
-<!-- container -->
-<div class="container">
-
-	<hr>
-
-	<footer>
-		<div class="row">
-			<div class="col-lg-12">
-				<p>Copyright &copy; Pixtime 2013</p>
-			</div>
 		</div>
-	</footer>
-
-</div>
-<!-- /.container -->
-
-<!-- Bootstrap core JavaScript -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/modern-business.js"></script>
-<script src="js/shCore.js"></script>
-
-<script src="js/shBrushJScript.js"></script>
+	</div>
+		</script>
+	
+	<!-- Container -->
+	<script type="text/javascript">
+		var source = document.getElementById("myTemplate").innerHTML;
+		var template = Handlebars.compile(source);
+		var rateitstmt = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=Utf-8\"><div id=\"rateit9\" name=\"rateit\"></div></html>";
 
 
-<script src="js/shBrushCss.js" type="text/javascript"></script>
+		var source1 = document.getElementById("myTemplate1").innerHTML;
+		var template1 = Handlebars.compile(source1);
+		document.getElementById("place").innerHTML =template1(rateitstmt);
+		var url = document.URL;
+		var n = url.indexOf("=");
+		var res = url.substring(n + 1, url.length);
+		function getmoviedetails() {
 
-<script src="js/shBrushCSharp.js" type="text/javascript"></script>
-<script src="js/jquery.rateit.js" type="text/javascript"></script>
-
-<script>
-
-function getCookie(c_name)
-{
-var c_value = document.cookie;
-var c_start = c_value.indexOf(" " + c_name + "=");
-if (c_start == -1)
-  {
-  c_start = c_value.indexOf(c_name + "=");
-  }
-if (c_start == -1)
-  {
-  c_value = null;
-  }
-else
-  {
-  c_start = c_value.indexOf("=", c_start) + 1;
-  var c_end = c_value.indexOf(";", c_start);
-  if (c_end == -1)
-  {
-c_end = c_value.length;
-}
-c_value = unescape(c_value.substring(c_start,c_end));
-}
-return c_value;
-}
+			$.get(
+							'http://localhost:8888/pixtime/movies/' + res,
+							function(responseJson) {
+								console.log("console" + responseJson);
+								document.getElementById("placeholder").innerHTML = template(responseJson);
+							});
+		}
+	</script>
 
 
-console.log(getCookie('JSESSIONID'));
-</script>
-<script type="text/javascript">
+
+	<!-- container -->
+	<div class="container">
+
+		<hr>
+
+		<footer>
+			<div class="row">
+				<div class="col-lg-12">
+					<p>Copyright &copy; Pixtime 2013</p>
+				</div>
+			</div>
+		</footer>
+
+	</div>
+	<!-- /.container -->
+
+	<!-- Bootstrap core JavaScript -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/bootstrap.js"></script>
+	<script src="js/modern-business.js"></script>
+	<script src="js/shCore.js"></script>
+
+	<script src="js/shBrushJScript.js"></script>
+
+
+	<script src="js/shBrushCss.js" type="text/javascript"></script>
+
+	<script src="js/shBrushCSharp.js" type="text/javascript"></script>
+
+	<script>
+		function getCookie(c_name) {
+			var c_value = document.cookie;
+			var c_start = c_value.indexOf(" " + c_name + "=");
+			if (c_start == -1) {
+				c_start = c_value.indexOf(c_name + "=");
+			}
+			if (c_start == -1) {
+				c_value = null;
+			} else {
+				c_start = c_value.indexOf("=", c_start) + 1;
+				var c_end = c_value.indexOf(";", c_start);
+				if (c_end == -1) {
+					c_end = c_value.length;
+				}
+				c_value = unescape(c_value.substring(c_start, c_end));
+			}
+			return c_value;
+		}
+
+		console.log(getCookie('JSESSIONID'));
+	</script>
+	<script type="text/javascript">
 		SyntaxHighlighter.all()
 	</script>
 </body>
