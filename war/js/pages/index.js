@@ -124,47 +124,99 @@ var i = 10;
 	// }
 
 	function makeExampleItem(dataObj) {
+		var star = 'img/U0 copy.png';
+		var onestar = 'img/U1 copy.png'
+		var twostar = '/img/U2 copy.png';
+		var threestar = 'img/U3 copy.png';
+		var fourstar = 'img/U4 copy.png';
+		var fivestar = 'img/U5 copy.png';
+		
 		var item = document.createElement('div');
 		item.className = 'hero-item has-example is-hidden';
+		item.id = 'movie';
+		
 		var link = document.createElement('a');
 		link.href = dataObj.movieurl;
+		link.href = 'http://localhost:8889/pixtime/movies/8d16463d-1649-459a-89f6-1e996cd846c4';
 		console.log(dataObj.movieurl);
+		
 		var img = document.createElement('img');
-
+		img.title = dataObj.movieName;
 		img.src = 'data:image/jpeg;base64,' + dataObj.encodedImg;
 
 		var title = document.createElement('p');
 		title.className = 'example-title';
-		title.textContent = dataObj.movieName;
+		title.textContent = '' + dataObj.movieName;
 
-		// title.textContent = '325 Ratings';
-		// var title1 = document.createElement('p');
-		// title1.textContent ="Kamalhassan, Saranya"
+		var el = document.createElement('div');
+		el.id = 'hidden';
+		el.textContent = 'http://localhost:8888/pixtime/movies/1d665dd1-1d17-49e4-9430-c0fbf6654e82';
 		console.log('Title' + dataObj.title);
+
+		var img1 = document.createElement('img');
+		img1.title = "Rate it !!";
+		img1.textContent = dataObj.current_Star_Rate;
+		 if(img1.textContent=="0")
+        {
+		img1.src = star;
+		img1.className = 'startest';
+		item.appendChild(img1);
+        }
+		 else if(img1.textContent=="1")
+			{
+			 img1.src = onestar;
+				img1.className = 'startest';
+				item.appendChild(img1);
+			}
+		 else if(img1.textContent=="2")
+			{	
+			 img1.src = twostar;
+				img1.className = 'startest';
+				item.appendChild(img1);
+				
+			}
+		else if(img1.textContent=="3")
+			{	
+			img1.src = threestar;
+			img1.className = 'startest';
+			item.appendChild(img1);
+			}
+			else if(img1.textContent=="4")
+				{	
+				img1.src = fourstar;
+				img1.className = 'startest';
+				item.appendChild(img1);
+					
+				}
+			else if(img1.textContent=="5")
+			{	
+			img1.src = fivestar;
+			img1.className = 'startest';
+			item.appendChild(img1);
+				
+			}
+
+
+		var desc = document.createElement('p');
+		desc.className = 'description';
+		desc.textContent = dataObj.description;
+		console.log('Description'+dataObj.desc);
+		
+
+		//link.appendChild(title1);
+		
+
 		link.appendChild(img);
+		// link.appendChild(title2);
+
 		link.appendChild(title);
-		// link.appendChild( title1);
+		//link.appendChild(desc);
 		item.appendChild(link);
+		// item.appendChild(el);
 
 		console.log(item.toString());
 
-		// var encImg = 'data:image/jpeg;base64,' + dataObj.encodedImg;
-		// var caption = dataObj.movieName;
-		// var date = '2013-11-20';
-		// var figure = '<figure class="span3 picture-item" data-date-created='
-		// + date
-		// + ' data-groups=\'["photography"]\'><img src='
-		// + encImg
-		// + '><div class="picture-item__details"><figcaption
-		// class="picture-item__title">'
-		// + caption
-		// + '</figcaption><p
-		// class="picture-item__tags">photography</p></div></figure>';
-		//
-		// var item = document.createElement('div');
-		// item.className = 'hero-item has-example is-hidden';
-		// item.id = 'grid';
 		return item;
 	}
-
+	
 })(window);
